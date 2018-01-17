@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.list-group-item,
+.uneditable-input:focus {   
+  outline: 0 none;
+}
+
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+
+
+.example-enter {
+  opacity: 0.01;
+  transform: scale(0.01);
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: 700ms;
+}
+
+.example-leave {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transform: scale(0.01);
+  transition: 700ms;
+}
+
+span.clickable {
+  color: #888;
+}
+span.clickable:hover {
+  color: black;
+}
