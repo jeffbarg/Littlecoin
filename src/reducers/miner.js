@@ -70,6 +70,16 @@ export default function miner (state: State = initializeState(),
       // return state
     case 'RECEIVED_TRANSACTION':
       return receivedTransaction(state, new Transaction(action.transaction), blockchain.transactions)
+    case 'CLEAR_BLOCKCHAIN':
+      let currentBlock: Block = new Block()
+
+      if (state.address != null) {
+        currentBlock.addCoinbase(Buffer.from(state.address, 'hex'))
+      }
+
+      let currentBlockData: BlockData = currentBlock.data()
+
+      return {...state, currentBlock: currentBlockData}
     default:
       return state
   }
