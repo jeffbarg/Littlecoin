@@ -21,7 +21,7 @@ import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 
 import littlecoinApp from './reducers'
-import { selectMiningAddress } from './actions'
+import { selectMiningAddress, stopMining } from './actions'
 
 import { mine } from './workers/MiningWorker'
 import { setupNetwork } from './workers/NetworkWorker'
@@ -31,7 +31,7 @@ import './index.css'
 
 const enhancer = compose(
   applyMiddleware(thunk, logger),
-  persistState(['wallet', 'blockchain'])
+  persistState(['wallet', 'blockchain', 'miner.currentBlock', 'miner'])
 )
 
 let store = createStore(
@@ -45,6 +45,9 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 )
+
+// Always make sure miner is not mining to start (since all of miner state is persisted)
+store.dispatch(stopMining())
 
 // Default to mining to first address
 if (store.getState().wallet.addresses.length > 0) {
