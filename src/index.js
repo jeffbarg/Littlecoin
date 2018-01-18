@@ -31,7 +31,7 @@ import './index.css'
 
 const enhancer = compose(
   applyMiddleware(thunk, logger),
-  persistState(['wallet', 'blockchain', 'miner.currentBlock', 'miner'])
+  persistState(['wallet', 'blockchain', 'miner'])
 )
 
 let store = createStore(
