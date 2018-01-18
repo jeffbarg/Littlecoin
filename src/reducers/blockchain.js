@@ -39,6 +39,8 @@ export default function blockchain (state: State = initializeState(), action: an
       return addToBlockchain(state, new Block(action.block))
     case 'RECEIVED_BLOCKCHAIN':
       return receivedBlockchain(state, action.blockchainData)
+    case 'CLEAR_BLOCKCHAIN':
+      return initializeState()
     default:
       return state
   }

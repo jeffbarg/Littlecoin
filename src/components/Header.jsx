@@ -61,7 +61,7 @@ class Header extends Component {
         <Navbar inverse collapseOnSelect style={{zIndex: 1030, borderRadius: 0}}>
           <Navbar.Header>
             <Navbar.Brand href='/'>
-              <img alt="logo" src='./logo.png' className='rounded-circle' style={{marginRight: 10, height: 20, width: 20, float: 'left'}} />
+              <img alt='logo' src='./logo.png' className='rounded-circle' style={{marginRight: 10, height: 20, width: 20, float: 'left'}} />
                 LittleCoin
               </Navbar.Brand>
             <Navbar.Toggle />

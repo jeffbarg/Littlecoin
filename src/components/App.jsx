@@ -12,6 +12,8 @@ import AddressList from './AddressList'
 import PeerList from './PeerList'
 import MinerProgress from './MinerProgress'
 import BlockchainActions from './BlockchainActions'
+import BlockchainManagement from './BlockchainManagement'
+
 import Header from './Header'
 
 import { Grid, Row, Col } from 'react-bootstrap'
@@ -49,6 +51,7 @@ class App extends Component {
               <PeerList />
               <AddressList />
               <MinerProgress />
+              <BlockchainManagement />
             </Col>
 
             <Col sm={9} md={10}>

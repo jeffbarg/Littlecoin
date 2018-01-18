@@ -58,3 +58,9 @@ export const receivedBlock = (block: Block) => {
     block: block.data()
   }
 }
+
+export const clearBlockchain = () => {
+  return {
+    type: 'CLEAR_BLOCKCHAIN'
+  }
+}
