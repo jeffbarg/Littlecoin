@@ -66,7 +66,7 @@ class ConnectNetworkModal extends Component {
                 />
               <FormControl.Feedback />
               <HelpBlock>Copy the Network ID that you want to join on the <code>LittleCoin</code> protocol.</HelpBlock>
-              <HelpBlock>A "network" is simply an identifier that helps facilitate finding other peers who have joined the same network.  In a real-world public blockchain, you might start with a list of trusted peers' IP addresses and ask for their peers.  You would continue this process until you are convinced you have all (or enough) existing peers.</HelpBlock>
+              <HelpBlock>A "network" is simply an identifier that helps facilitate finding other peers who have joined the same network.  In a real-world public blockchain, you might start with a list of trusted peers' IP addresses and ask for their peers.  You might continue this process until you are convinced you have all (or enough) existing peers.</HelpBlock>
             </FormGroup>
           </Modal.Body>
 

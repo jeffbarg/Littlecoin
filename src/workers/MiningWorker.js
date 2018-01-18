@@ -43,7 +43,7 @@ export const mine = (store: Store) => {
 
     nonce++
 
-    setTimeout(iteration, 100) // Wait 100 ms to let the UI update.
+    setTimeout(iteration, 10) // Wait 10 ms to let the UI update.
   }
 
   // Start Iterating
