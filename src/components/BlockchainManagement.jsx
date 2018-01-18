@@ -38,7 +38,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     clearBlockchain: () => {
-      if (window.confirm('Are you sure you want to delete your local blockchain data?  You will still sync with any other nodes you are connected to')) {
+      if (window.confirm('Are you sure you want to delete your local blockchain data?  You will still sync with any other nodes you are connected to.')) {
         dispatch(clearBlockchain())
       }
     }
