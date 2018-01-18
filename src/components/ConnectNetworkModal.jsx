@@ -74,6 +74,7 @@ class ConnectNetworkModal extends Component {
             <Button onClick={this.props.onHide}>Close</Button>
             <Button bsStyle='primary'
               type='submit'
+              disabled={this.state.networkName == null || this.state.networkName.length === 0}
               onClick={() => {
                 this.props.connectNode(this.state.networkName.toLowerCase())
                 this.props.onHide()
