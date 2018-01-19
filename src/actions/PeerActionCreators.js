@@ -11,6 +11,8 @@
 import Block from '../models/Block'
 import Transaction from '../models/Transaction'
 
+import type { Peer } from '../reducers/peers'
+
 export const joinNetwork = (networkName: string) => {
   return function (dispatch: (action: any) => void, getState: () => any) {
     const easyrtc = window.easyrtc
@@ -63,7 +65,14 @@ export const receivedPeerlist = (peers: Array<{username: string, easyrtcid: stri
   }
 }
 
-export const connectedPeer = (peer: {username: string, easyrtcid: string}) => {
+export const updatePeer = (peer: Peer) => {
+  return {
+    type: 'UPDATE_PEER',
+    peer
+  }
+}
+
+export const connectedPeer = (peer: Peer) => {
   return function (dispatch: (action: any) => void, getState: () => any) {
     const easyrtc = window.easyrtc
     const otherEasyrtcid = peer.easyrtcid
@@ -78,6 +87,20 @@ export const connectedPeer = (peer: {username: string, easyrtcid: string}) => {
         easyrtc.sendDataWS(otherEasyrtcid, 'TRANSACTION', transaction.data())
       }
     })
+
+    // Send over this peer (include selected public address)
+    const nodeId = getState().peers.nodeId
+    const primaryAddress = getState().wallet.primaryAddress
+
+    if (nodeId != null) {
+      let selfPeer = {
+        username: easyrtc.idToName(nodeId),
+        easyrtcid: nodeId,
+        publicAddress: primaryAddress
+      }
+
+      easyrtc.sendDataWS(otherEasyrtcid, 'PEER', selfPeer)
+    }
 
     dispatch({
       type: 'CONNECTED_PEER',
