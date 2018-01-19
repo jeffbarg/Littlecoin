@@ -26,12 +26,15 @@ import { selectMiningAddress, stopMining } from './actions'
 import { mine } from './workers/MiningWorker'
 import { setupNetwork } from './workers/NetworkWorker'
 
+// Service worker
+import registerServiceWorker from './registerServiceWorker';
+
 // Styles
 import './index.css'
 
 const enhancer = compose(
   applyMiddleware(thunk, logger),
-  persistState(['wallet', 'blockchain', 'miner'])
+  persistState(['wallet', 'blockchain'  , 'miner'])
 )
 
 let store = createStore(
@@ -57,3 +60,5 @@ if (store.getState().wallet.addresses.length > 0) {
 
 mine(store)
 setupNetwork(store)
+
+registerServiceWorker();
