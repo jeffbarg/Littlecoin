@@ -33,8 +33,31 @@ export const removeAddress = (publicKey: string) => {
 }
 
 export const changePrimaryAddress = (publicKey: string) => {
-  return {
-    type: 'CHANGE_PRIMARY_ADDRESS',
-    publicKey
+  return function (dispatch: (action: any) => void, getState: () => any) {
+    const peers = getState().peers.peers
+    const easyrtc = window.easyrtc
+
+    peers.forEach((peer) => {
+      const otherEasyrtcid = peer.easyrtcid
+
+      // Send over this peer (include selected public address)
+      const nodeId = getState().peers.nodeId
+      const primaryAddress = getState().wallet.primaryAddress
+
+      if (nodeId != null) {
+        let selfPeer = {
+          username: easyrtc.idToName(nodeId),
+          easyrtcid: nodeId,
+          publicAddress: primaryAddress
+        }
+
+        easyrtc.sendDataWS(otherEasyrtcid, 'PEER', selfPeer)
+      }
+    })
+
+    dispatch({
+      type: 'CHANGE_PRIMARY_ADDRESS',
+      publicKey
+    })
   }
 }

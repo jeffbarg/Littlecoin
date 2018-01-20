@@ -63,9 +63,43 @@ class SendCoinModal extends Component {
   }
 
   getAmountValidationState () {
-    if (this.state.amount > 0) return 'success'
-    else if (this.state.amount === 0) return 'warning'
-    else if (this.state.amount < 0) return 'error'
+    const getBalance = (blockchain, address) => {
+      let unspentOutputs = blockchain.unspentOutputs
+      let addressTxs = unspentOutputs[address]
+
+      if (addressTxs === null || addressTxs === undefined) {
+        console.log("ADDRESS HAD NO BALANCE!")
+        return 0
+      }
+
+      let totalUnspent = 0
+      addressTxs.forEach((vout) => {
+        totalUnspent += vout.amount
+      })
+
+      return totalUnspent
+    }
+    
+    const spendingAmount = this.state.amount
+    
+    if (spendingAmount > 0) {
+      if (this.state.sendingAddress != null) {
+        const blockchain = this.props.blockchain
+        const sendingKey = this.state.sendingAddress.publicKey
+        const balance = getBalance(this.props.blockchain, sendingKey)
+
+        if (balance < spendingAmount) {
+          return 'error'
+        } else {
+          return 'success'
+        }
+      } else {
+        // Return warning if no sending address selected
+        return 'warning'
+      }
+    }
+    else if (spendingAmount === 0) return 'warning'
+    else if (spendingAmount < 0) return 'error'
     return null
   }
 
@@ -153,7 +187,7 @@ class SendCoinModal extends Component {
 const mapStateToProps = state => {
   return {
     availableAddresses: state.wallet.addresses,
-    blockchainState: state.blockchain
+    blockchain: state.blockchain
   }
 }
 

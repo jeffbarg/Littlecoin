@@ -12,7 +12,8 @@
 
 export type Peer = {
   username: string,
-  easyrtcid: string
+  easyrtcid: string,
+  primaryAddress: ?string
 }
 
 opaque type State = {
@@ -38,6 +39,8 @@ export default function peers (state: State = initializeState(),
       return connectedPeer(state, action.peer)
     case 'DISCONNECTED_PEER':
       return disconnectedPeer(state, action.peer)
+    case 'UPDATE_PEER':
+      return updatePeer(state, action.peer)
     case 'RECEIVED_PEERLIST':
       return receivedPeerlist(state, action.peers)
     default:
@@ -62,6 +65,20 @@ export default function peers (state: State = initializeState(),
     return {...state, peers: state.peers.filter(peer => peer.easyrtcid !== peerId)}
   }
 
+  function updatePeer (state: State, peer: Peer): State {
+    let newState = {...state}
+
+    newState.peers = newState.peers.map((existingPeer) => {
+      if (existingPeer.easyrtcid === peer.easyrtcid) {
+        return peer
+      } else {
+        return existingPeer
+      }
+    })
+
+    return newState
+  }
+  
   function receivedPeerlist (state: State, peers: Array<Peer>) {
     const existingPeers = state.peers
 
