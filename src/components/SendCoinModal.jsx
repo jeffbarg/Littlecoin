@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 
 import { sendCoin } from '../actions'
 
-import { Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock, ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
+import { Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock, ToggleButton, ToggleButtonGroup, Label } from 'react-bootstrap'
 
 class SendCoinModal extends Component {
   constructor (props) {
@@ -29,6 +29,7 @@ class SendCoinModal extends Component {
     this.getAmountValidationState = this.getAmountValidationState.bind(this)
     this.getAddressValidationState = this.getAddressValidationState.bind(this)
     this.onChangeSendingAddress = this.onChangeSendingAddress.bind(this)
+    this.onSelectDestinationPeer = this.onSelectDestinationPeer.bind(this)
   }
 
   handleAmountChange (e) {
@@ -110,7 +111,33 @@ class SendCoinModal extends Component {
     })
   }
 
+  onSelectDestinationPeer (peerAddress) {
+    console.log('onSelectDestinationPeer')
+    console.log(peerAddress)
+
+    this.setState({
+      destinationAddress: peerAddress
+    })
+  }
+
   render () {
+    const getBalance = (blockchain, address) => {
+      let unspentOutputs = blockchain.unspentOutputs
+      let addressTxs = unspentOutputs[address]
+
+      if (addressTxs === null || addressTxs === undefined) {
+        console.log("ADDRESS HAD NO BALANCE!")
+        return 0
+      }
+
+      let totalUnspent = 0
+      addressTxs.forEach((vout) => {
+        totalUnspent += vout.amount
+      })
+
+      return totalUnspent
+    }
+
     return (
       <div>
         <Modal.Header style={{textOverflow: 'ellipsis', overflow: 'auto'}}>
@@ -123,6 +150,8 @@ class SendCoinModal extends Component {
               <ControlLabel>Address to send from</ControlLabel>
               <FormControl componentClass='div' bsClass=''>
                 <ToggleButtonGroup
+                  vertical
+                  block
                   type='radio'
                   name='sendingAddress'
                   value={this.state.sendingAddress}
@@ -130,7 +159,11 @@ class SendCoinModal extends Component {
                 >
                   {this.props.availableAddresses.map((address) => {
                     return (
-                      <ToggleButton key={address.publicKey} value={address}>{address.publicKey.substr(0, 32)}...</ToggleButton>
+                      <ToggleButton 
+                        key={address.publicKey} 
+                        value={address}>
+                        <Label bsStyle='success' style={{float: 'left', marginTop: 4}}>   {getBalance(this.props.blockchain, address.publicKey)}</Label>{address.publicKey.substr(0, 50)}...
+                        </ToggleButton>
                     )
                   })}
                 </ToggleButtonGroup>
@@ -142,10 +175,30 @@ class SendCoinModal extends Component {
               validationState={this.getAddressValidationState()}
             >
               <ControlLabel>Address to send to</ControlLabel>
+                <ToggleButtonGroup
+                  type='radio'
+                  name='destinationAddress'
+                  vertical
+                  block
+                  value={this.state.destinationAddress}
+                  onChange={this.onSelectDestinationPeer}
+                  style={{marginBottom: 5}}
+                >
+                  {this.props.peers.map((peer, index) => {
+                    return (
+                      <ToggleButton
+                        key={peer.easyrtcid}
+                        disabled={peer.publicAddress == null}
+                        value={peer.publicAddress}>
+                        Peer {index + 1}: {peer.easyrtcid}
+                      </ToggleButton>
+                    )
+                  })}
+                </ToggleButtonGroup>
               <FormControl
                 type='text'
                 value={this.state.destinationAddress}
-                placeholder='Amount'
+                placeholder='Public Key'
                 onChange={this.handleAddressChange}
               />
               <FormControl.Feedback />
@@ -187,7 +240,8 @@ class SendCoinModal extends Component {
 const mapStateToProps = state => {
   return {
     availableAddresses: state.wallet.addresses,
-    blockchain: state.blockchain
+    blockchain: state.blockchain,
+    peers: state.peers.peers
   }
 }
 

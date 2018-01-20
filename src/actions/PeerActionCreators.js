@@ -96,7 +96,7 @@ export const connectedPeer = (peer: Peer) => {
       let selfPeer = {
         username: easyrtc.idToName(nodeId),
         easyrtcid: nodeId,
-        publicAddress: primaryAddress
+        publicAddress: primaryAddress.publicKey
       }
 
       easyrtc.sendDataWS(otherEasyrtcid, 'PEER', selfPeer)

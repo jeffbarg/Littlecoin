@@ -12,7 +12,7 @@ import type { Store } from 'redux'
 
 // Actions
 import { receivedTransaction, receivedBlockchain,
-         receivedBlock, receivedPeerlist, gotNetworkId } from '../actions'
+         receivedBlock, receivedPeerlist, gotNetworkId, updatePeer } from '../actions'
 
 // Models
 import Block from '../models/Block'
@@ -57,6 +57,8 @@ function receiveData (who: string,
       const transaction = new Transaction(content)
       dispatch(receivedTransaction(transaction))
       break
+    case 'PEER':
+      dispatch(updatePeer(content))
     default:
   }
 }
