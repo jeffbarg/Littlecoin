@@ -67,7 +67,12 @@ class Header extends Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            <Navbar.Form pullRight>
+            <Navbar.Form pullLeft>
+                <Button bsStyle='link' href="https://github.com/jeffbarg/littlecoin">
+                  <Label>GitHub Source Code</Label>
+                </Button>
+            </Navbar.Form>
+            <Navbar.Form pullRight> 
               <ButtonToolbar>
                 <Button
                   ref='target'
