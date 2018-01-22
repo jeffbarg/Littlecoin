@@ -15,7 +15,7 @@ import Vout from './Vout'
 
 import crypto from 'crypto'
 
-let DEFAULT_DIFFICULTY = 14
+let DEFAULT_DIFFICULTY = 12
 
 export type BlockData = {
   nonce: number;
