@@ -61,6 +61,4 @@ if (store.getState().wallet.addresses.length > 0) {
 mine(store)
 setupNetwork(store)
 
-store.dispatch(joinNetwork("littlecoin.network"))
-
 registerServiceWorker();
