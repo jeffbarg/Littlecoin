@@ -42,13 +42,12 @@ export const changePrimaryAddress = (publicKey: string) => {
 
       // Send over this peer (include selected public address)
       const nodeId = getState().peers.nodeId
-      const primaryAddress = getState().wallet.primaryAddress
 
       if (nodeId != null) {
         let selfPeer = {
           username: easyrtc.idToName(nodeId),
           easyrtcid: nodeId,
-          publicAddress: primaryAddress
+          publicAddress: publicKey
         }
 
         easyrtc.sendDataWS(otherEasyrtcid, 'PEER', selfPeer)
