@@ -36,7 +36,6 @@ export const setupNetwork = (store: Store) => {
   easyrtc.setRoomOccupantListener((a, b, c) => roomData(a, b, c, dispatch))
 
   easyrtc.setDisconnectListener(() => {
-    window.alert('Disconnected from Network')
     dispatch(gotNetworkId(null))
   })
 }
