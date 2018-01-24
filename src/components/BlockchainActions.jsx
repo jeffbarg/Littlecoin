@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { startMining, stopMining } from '../actions'
+import { startMining, stopMining, disconnectNetwork } from '../actions'
 
 import SendCoinModal from './SendCoinModal'
 import ConnectNetworkModal from './ConnectNetworkModal'
@@ -46,8 +46,14 @@ class BlockchainActions extends Component {
     this.setState({ showConnectNetworkModal: false })
   }
 
-  openConnectNetworkModal () {
-    this.setState({ showConnectNetworkModal: true })
+  openConnectNetworkModal (e, alreadyJoinedNetwork) {
+    e.target.blur()
+
+    if (alreadyJoinedNetwork) {
+      this.props.disconnectNetwork()
+    } else {
+      this.setState({ showConnectNetworkModal: true })
+    }
   }
 
   render () {
@@ -76,10 +82,9 @@ class BlockchainActions extends Component {
         <Col sm={4} xs={12}>
           <Button style={{marginBottom: 10}}
             block
-            bsStyle='info'
-            disabled={this.props.joinedNetwork}
-            onClick={this.openConnectNetworkModal}>
-            Connect To Network
+            bsStyle={this.props.joinedNetwork ? 'network-disconnect' : 'info'}
+            onClick={(e) => { this.openConnectNetworkModal(e, this.props.joinedNetwork) }}>
+            {this.props.joinedNetwork? 'Disconnect From Network' : 'Connect To Network'}
           </Button>
         </Col>
 
@@ -105,6 +110,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    disconnectNetwork: () => {
+      dispatch(disconnectNetwork())
+    },
     toggleMining: (mining) => {
       dispatch(mining ? stopMining() : startMining())
     }

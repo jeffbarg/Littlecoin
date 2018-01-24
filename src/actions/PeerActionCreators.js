@@ -26,6 +26,14 @@ export const joinNetwork = (networkName: string) => {
   }
 }
 
+export const disconnectNetwork = () => {
+  return function (dispatch: (action: any) => void, getState: () => any) {
+    const easyrtc = window.easyrtc
+
+    easyrtc.disconnect()
+  }
+}
+
 export const gotNetworkId = (networkId: ?string) => {
   return {
     type: 'CONNECT_NODE',
