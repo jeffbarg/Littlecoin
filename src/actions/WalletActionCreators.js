@@ -47,7 +47,7 @@ export const changePrimaryAddress = (publicKey: string) => {
         let selfPeer = {
           username: easyrtc.idToName(nodeId),
           easyrtcid: nodeId,
-          publicAddress: publicKey
+          primaryAddress: publicKey
         }
 
         easyrtc.sendDataWS(otherEasyrtcid, 'PEER', selfPeer)

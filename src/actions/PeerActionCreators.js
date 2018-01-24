@@ -41,7 +41,7 @@ export const gotNetworkId = (networkId: ?string) => {
   }
 }
 
-export const receivedPeerlist = (peers: Array<{username: string, easyrtcid: string}>) => {
+export const receivedPeerlist = (peers: Array<Peer>) => {
   return function (dispatch: (action: any) => void, getState: () => any) {
     const existingPeers = getState().peers.peers
 
@@ -101,10 +101,13 @@ export const connectedPeer = (peer: Peer) => {
     const primaryAddress = getState().wallet.primaryAddress
 
     if (nodeId != null) {
-      let selfPeer = {
+      let selfPeer: Peer = {
         username: easyrtc.idToName(nodeId),
-        easyrtcid: nodeId,
-        publicAddress: primaryAddress.publicKey
+        easyrtcid: nodeId
+      }
+
+      if (primaryAddress != null) {
+        selfPeer.primaryAddress = primaryAddress.publicKey
       }
 
       easyrtc.sendDataWS(otherEasyrtcid, 'PEER', selfPeer)

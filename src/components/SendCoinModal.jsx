@@ -19,7 +19,6 @@ class SendCoinModal extends Component {
 
     this.state = {
       destinationAddress: '',
-      amount: 0,
       sendingAddress: this.props.availableAddresses[0]
     }
 
@@ -83,6 +82,8 @@ class SendCoinModal extends Component {
     
     const spendingAmount = this.state.amount
     
+    if (spendingAmount === undefined) return undefined
+
     if (spendingAmount > 0) {
       if (this.state.sendingAddress != null) {
         const blockchain = this.props.blockchain
@@ -188,8 +189,8 @@ class SendCoinModal extends Component {
                     return (
                       <ToggleButton
                         key={peer.easyrtcid}
-                        disabled={peer.publicAddress == null}
-                        value={peer.publicAddress}>
+                        disabled={peer.primaryAddress == null}
+                        value={peer.primaryAddress}>
                         Peer {index + 1}: {peer.easyrtcid}
                       </ToggleButton>
                     )
@@ -211,7 +212,7 @@ class SendCoinModal extends Component {
             >
               <ControlLabel>Amount to send</ControlLabel>
               <FormControl
-                type='text'
+                type='number'
                 value={this.state.amount}
                 placeholder='Amount'
                 onChange={this.handleAmountChange}

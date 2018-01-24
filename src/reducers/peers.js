@@ -13,7 +13,7 @@
 export type Peer = {
   username: string,
   easyrtcid: string,
-  primaryAddress: ?string
+  primaryAddress?: string
 }
 
 opaque type State = {
