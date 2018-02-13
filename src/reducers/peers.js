@@ -78,7 +78,7 @@ export default function peers (state: State = initializeState(),
 
     return newState
   }
-  
+
   function receivedPeerlist (state: State, peers: Array<Peer>) {
     const existingPeers = state.peers
 

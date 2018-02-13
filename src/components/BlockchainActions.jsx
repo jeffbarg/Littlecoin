@@ -84,7 +84,7 @@ class BlockchainActions extends Component {
             block
             bsStyle={this.props.joinedNetwork ? 'network-disconnect' : 'info'}
             onClick={(e) => { this.openConnectNetworkModal(e, this.props.joinedNetwork) }}>
-            {this.props.joinedNetwork? 'Disconnect From Network' : 'Connect To Network'}
+            {this.props.joinedNetwork ? 'Disconnect From Network' : 'Connect To Network'}
           </Button>
         </Col>
 

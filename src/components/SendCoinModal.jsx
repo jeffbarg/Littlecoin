@@ -68,7 +68,7 @@ class SendCoinModal extends Component {
       let addressTxs = unspentOutputs[address]
 
       if (addressTxs === null || addressTxs === undefined) {
-        console.log("ADDRESS HAD NO BALANCE!")
+        console.log('ADDRESS HAD NO BALANCE!')
         return 0
       }
 
@@ -79,9 +79,9 @@ class SendCoinModal extends Component {
 
       return totalUnspent
     }
-    
+
     const spendingAmount = this.state.amount
-    
+
     if (spendingAmount === undefined) return undefined
 
     if (spendingAmount > 0) {
@@ -99,8 +99,7 @@ class SendCoinModal extends Component {
         // Return warning if no sending address selected
         return 'warning'
       }
-    }
-    else if (spendingAmount === 0) return 'warning'
+    } else if (spendingAmount === 0) return 'warning'
     else if (spendingAmount < 0) return 'error'
     return null
   }
@@ -127,7 +126,7 @@ class SendCoinModal extends Component {
       let addressTxs = unspentOutputs[address]
 
       if (addressTxs === null || addressTxs === undefined) {
-        console.log("ADDRESS HAD NO BALANCE!")
+        console.log('ADDRESS HAD NO BALANCE!')
         return 0
       }
 
@@ -160,10 +159,10 @@ class SendCoinModal extends Component {
                 >
                   {this.props.availableAddresses.map((address) => {
                     return (
-                      <ToggleButton 
-                        key={address.publicKey} 
+                      <ToggleButton
+                        key={address.publicKey}
                         value={address}>
-                        <Label bsStyle='success' style={{float: 'left', marginTop: 4}}>   {getBalance(this.props.blockchain, address.publicKey)}</Label>{address.publicKey.substr(0, 50)}...
+                        <Label bsStyle='success' style={{float: 'left', marginTop: 4}}>             {getBalance(this.props.blockchain, address.publicKey)}</Label>{address.publicKey.substr(0, 50)}...
                         </ToggleButton>
                     )
                   })}
@@ -176,26 +175,26 @@ class SendCoinModal extends Component {
               validationState={this.getAddressValidationState()}
             >
               <ControlLabel>Address to send to</ControlLabel>
-                <ToggleButtonGroup
-                  type='radio'
-                  name='destinationAddress'
-                  vertical
-                  block
-                  value={this.state.destinationAddress}
-                  onChange={this.onSelectDestinationPeer}
-                  style={{marginBottom: 5}}
+              <ToggleButtonGroup
+                type='radio'
+                name='destinationAddress'
+                vertical
+                block
+                value={this.state.destinationAddress}
+                onChange={this.onSelectDestinationPeer}
+                style={{marginBottom: 5}}
                 >
-                  {this.props.peers.map((peer, index) => {
-                    return (
-                      <ToggleButton
-                        key={peer.easyrtcid}
-                        disabled={peer.primaryAddress == null}
-                        value={peer.primaryAddress}>
+                {this.props.peers.map((peer, index) => {
+                  return (
+                    <ToggleButton
+                      key={peer.primaryAddress + peer.easyrtcid}
+                      disabled={peer.primaryAddress == null}
+                      value={peer.primaryAddress}>
                         Peer {index + 1}: {peer.easyrtcid}
-                      </ToggleButton>
-                    )
-                  })}
-                </ToggleButtonGroup>
+                    </ToggleButton>
+                  )
+                })}
+              </ToggleButtonGroup>
               <FormControl
                 type='text'
                 value={this.state.destinationAddress}

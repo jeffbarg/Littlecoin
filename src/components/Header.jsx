@@ -68,11 +68,11 @@ class Header extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Navbar.Form pullLeft>
-                <Button bsStyle='link' href="https://github.com/jeffbarg/littlecoin">
-                  <Label>GitHub Source Code</Label>
-                </Button>
+              <Button bsStyle='link' href='https://github.com/jeffbarg/littlecoin'>
+                <Label>GitHub Source Code</Label>
+              </Button>
             </Navbar.Form>
-            <Navbar.Form pullRight> 
+            <Navbar.Form pullRight>
               <ButtonToolbar>
                 <Button
                   ref='target'
