@@ -58,7 +58,7 @@ if (store.getState().wallet.addresses.length > 0) {
   let firstAddress = store.getState().wallet.addresses[0].publicKey
   store.dispatch(selectMiningAddress(firstAddress))
 } else {
-  addAddress()
+  store.dispatch(addAddress())
 }
 
 mine(store)
