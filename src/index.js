@@ -21,7 +21,7 @@ import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 
 import littlecoinApp from './reducers'
-import { selectMiningAddress, stopMining, joinNetwork } from './actions'
+import { selectMiningAddress, stopMining, joinNetwork, addAddress } from './actions'
 
 import { mine } from './workers/MiningWorker'
 import { setupNetwork } from './workers/NetworkWorker'
@@ -57,6 +57,8 @@ store.dispatch(stopMining())
 if (store.getState().wallet.addresses.length > 0) {
   let firstAddress = store.getState().wallet.addresses[0].publicKey
   store.dispatch(selectMiningAddress(firstAddress))
+} else {
+  addAddress()
 }
 
 mine(store)
