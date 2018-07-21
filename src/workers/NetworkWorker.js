@@ -22,7 +22,7 @@ export const setupNetwork = (store: Store) => {
   const dispatch = store.dispatch.bind(store)
   const easyrtc = window.easyrtc
 
-  easyrtc.setSocketUrl('https://54.172.240.234:8443')
+  easyrtc.setSocketUrl('https://network.littlecoin.io:8443')
 
   easyrtc.enableDebug(false)
   easyrtc.enableDataChannels(false)
