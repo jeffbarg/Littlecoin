@@ -58,5 +58,5 @@ export const changePrimaryAddress = (publicKey: string) => {
       type: 'CHANGE_PRIMARY_ADDRESS',
       publicKey
     })
-  }
-}
+  };
+};
