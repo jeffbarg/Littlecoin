@@ -58,7 +58,9 @@ function receiveData (who: string,
       break
     case 'PEER':
       dispatch(updatePeer(content))
+      break
     default:
+      break
   }
 }
 

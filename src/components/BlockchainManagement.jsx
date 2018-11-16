@@ -23,8 +23,7 @@ class BlockchainManagement extends Component {
       <Button style={{marginBottom: 10}}
         block
         bsStyle='danger'
-        onClick={() => { this.props.clearBlockchain() }}
-        style={{marginBottom: 20}}>
+        onClick={() => { this.props.clearBlockchain() }}>
         Clear Blockchain
       </Button>
     )

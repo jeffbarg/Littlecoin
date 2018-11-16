@@ -86,7 +86,6 @@ class SendCoinModal extends Component {
 
     if (spendingAmount > 0) {
       if (this.state.sendingAddress != null) {
-        const blockchain = this.props.blockchain
         const sendingKey = this.state.sendingAddress.publicKey
         const balance = getBalance(this.props.blockchain, sendingKey)
 

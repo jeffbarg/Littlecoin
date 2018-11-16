@@ -8,16 +8,8 @@
 
 // @flow
 
-const PeerActionCreators = require('./PeerActionCreators')
-const SyncActionCreators = require('./SyncActionCreators')
-const TransactionActionCreators = require('./TransactionActionCreators')
-const MiningActionCreators = require('./MiningActionCreators')
-const WalletActionCreators = require('./WalletActionCreators')
-
-module.exports = {
-  ...PeerActionCreators,
-  ...SyncActionCreators,
-  ...TransactionActionCreators,
-  ...MiningActionCreators,
-  ...WalletActionCreators
-}
+export * from './PeerActionCreators'
+export * from './SyncActionCreators'
+export * from './TransactionActionCreators'
+export * from './MiningActionCreators'
+export * from './WalletActionCreators'
