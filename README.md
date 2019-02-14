@@ -1,6 +1,7 @@
 # LittleCoin
 ![](https://img.shields.io/badge/stability-experimental-orange.svg)
 ![](https://img.shields.io/badge/style-standard-green.svg)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fc596618-02dc-4cd5-9a42-13951d9bd951/deploy-status)](https://app.netlify.com/sites/practical-davinci-1e905d/deploys)
 
 [LittleCoin](https://littlecoin.io/) is an in-browser cryptocurrency built on React, Redux, WebCrypto, and WebSockets/EasyRTC.
 
